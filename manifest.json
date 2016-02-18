@@ -1,0 +1,21 @@
+{
+	"manifest_version": 2,
+	"name": "Ultimate Guitar Hack",
+	"version": "0.1",
+	"description": "Runs on ultimate guitar tab or chords page, removes styling to present only the lyrics and chords/tabs",
+
+	"permissions": [ ],
+
+	"content_scripts": [
+		{
+			"matches": ["https://tabs.ultimate-guitar.com/*"],
+			"js": [
+				"jquery.js",
+				"hack.js"
+			],
+			"css": [
+				"style.css"
+			]
+		}
+	]
+}

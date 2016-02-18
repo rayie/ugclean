@@ -1,0 +1,13 @@
+
+.scroll_body {
+	overflow: auto;
+	height: 260px;
+	margin-top: 10px;
+	border: 1px dashed blue;
+	padding-bottom: 10px;
+}
+
+
+pre {
+	font-size: .9em;
+}
