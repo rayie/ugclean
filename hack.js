@@ -61,7 +61,7 @@ var map = {
     "D": "Db",
     "E": "Eb",
     "F": "E",
-    "G": "Gb",
+    "G": "F#",
 
     "A#": "A",
     "B#": "B",
@@ -87,7 +87,6 @@ function ab(){
   jQuery("head link").remove();
   var title = jQuery("h1[itemprop]").text();
   var a = jQuery("pre.js-tab-content").html(); 
-  var pre = jQuery("<pre></pre>");
   var hdr = jQuery("<h2>"+title+"</h2>");
   var upbtn= jQuery("<button>Half Step Up</button>");
   var downbtn = jQuery("<button>Half Step Down</button>");
@@ -100,7 +99,30 @@ function ab(){
   console.log(hdr);
   console.log(upbtn);
 
-  pre.html(a);
+
+  var col1 = a.split("\n");
+  var linesPerCol = Math.floor( col1.length/3 );
+  var col2 = col1.splice(linesPerCol);
+  var col3 = col2.splice(linesPerCol); 
+  var tbl = jQuery( "<div style='border: 1px solid #000; width:100%'><table style='width: 90%;'><tr> <td style='width: 33%;padding-right: 10px;border-right: 1px solid #000' id='col1'></td> <td style='width: 33%; padding-right: 10px;border-right: 1px solid #000;' id='col2'></td> <td style='width:33%;' id='col3'></td></tr></table></div>" );
+ 
+
+  if ( col1[ col1.length-1 ].search(/<span/) !== -1 ){
+    col2 = [col1.pop()].concat(col2);
+  }
+
+  if ( col2[ col2.length-1 ].search(/<span/) !== -1 ){
+    col3 = [col2.pop()].concat(col3);
+  }
+
+  var pre1 = jQuery("<pre></pre>");
+  pre1.html(col1.join("\n"));
+
+  var pre2 = jQuery("<pre></pre>");
+  pre2.html(col2.join("\n"));
+
+  var pre3 = jQuery("<pre></pre>");
+  pre3.html(col3.join("\n"));
 
   jQuery("body").attr("background","").css("background-color","#fff").css("margin","20px")
   .html(hdr)
@@ -108,7 +130,14 @@ function ab(){
   .append(downbtn)
   .append(sec)
   .append(sbtn)
-  .append(pre);
+  .append(tbl);
+
+  console.log(pre1);
+
+  jQuery("#col1").append(pre1);
+  jQuery("#col2").append(pre2);
+  jQuery("#col3").append(pre3);
+
 }
 
 function upstep(){ step('up') }
