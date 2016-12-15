@@ -85,9 +85,12 @@ function ab(){
   jQuery("script").remove();
   jQuery("head meta").remove();
   jQuery("head link").remove();
+
   var title = jQuery("h1[itemprop]").text();
   var a = jQuery("pre.js-tab-content").html(); 
-  var hdr = jQuery("<h2>"+title+"</h2>");
+  var hdr = "<div style='width: 40%; float:left'><strong>"+title+"</strong><div><div style='width: 40%; float:left'><div>";
+  hdr = jQuery(hdr);
+
   var upbtn= jQuery("<button>Half Step Up</button>");
   var downbtn = jQuery("<button>Half Step Down</button>");
   var sbtn = jQuery("<button>Scroll</button>");
@@ -104,7 +107,7 @@ function ab(){
   var linesPerCol = Math.floor( col1.length/3 );
   var col2 = col1.splice(linesPerCol);
   var col3 = col2.splice(linesPerCol); 
-  var tbl = jQuery( "<div style='border: 1px solid #000; width:100%'><table style='width: 90%;'><tr> <td style='width: 33%;padding-right: 10px;border-right: 1px solid #000' id='col1'></td> <td style='width: 33%; padding-right: 10px;border-right: 1px solid #000;' id='col2'></td> <td style='width:33%;' id='col3'></td></tr></table></div>" );
+  var tbl = jQuery( "<div style='border: 1px solid #000; width:100%'><table style='width: 90%;'><tr> <td style='width: 33%;padding-right: 10px;border-right: 1px solid #000' id='col1'></td> <td style='width: 33%; padding-right: 10px;border-right: 1px solid #000;' id='col2'></td> <td style='width:33%;' id='col3'></td></tr></table><div id='chord'></div></div>" );
  
 
   if ( col1[ col1.length-1 ].search(/<span/) !== -1 ){
@@ -138,6 +141,17 @@ function ab(){
   jQuery("#col2").append(pre2);
   jQuery("#col3").append(pre3);
 
+  jQuery("span").css("cursor","pointer").bind("click",function(el){
+    var c = jQuery(this).text();
+    getChordImg(c);
+  });
+}
+
+function getChordImg(c){
+  var C = c.toUpperCase();
+  var s1 = "http://pianochord.org/images/"+c+".png";
+  var s2= "http://www.scales-chords.com/chord-images/piano-chord-" + C + ".jpg";
+  $("#chord").html("<div><h3 style='float:left'>"+c+":</h3><img style='height: 92px' src='"+s1+"'><img style='margin-left:80px;height: 92px' src='"+s2+"'><div>");
 }
 
 function upstep(){ step('up') }
